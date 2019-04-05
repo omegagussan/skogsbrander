@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[31]:
+# In[1]:
 
 
 import json
@@ -10,7 +10,7 @@ import os
 import requests
 
 
-# In[59]:
+# In[2]:
 
 
 def get_json_data(lat, lng):
@@ -18,32 +18,34 @@ def get_json_data(lat, lng):
     #always whole 2018
     paramters  =' &lng=' + str(lng) + '&lat=' + str(lat) + '8&startDate=2018-01-01&endDate=2018-12-30'
     req = requests.get(api_url + paramters)
-    print(req)
-    if req.status == 200:
+    if req.status_code == 200:
         req_data = req.content
         return json.loads(req_data)
     else:
         return None
 
 
-# In[60]:
+# In[3]:
 
 
-json_data = get_json_data(lng=106.18,lat=53.98)
+json_data = get_json_data(lng=106.20,lat=53.98)
+json_data
 
 
-# In[49]:
+# In[6]:
 
 
 def toString(long, lat):
     return "lng:" + long + "lat:" + lat
 
 def download_files(rel_dir, json_req):
-    if os.path.exists(rel_dir):
-        shutil.rmtree(rel_dir)
-    os.makedirs(rel_dir)
+    if not os.path.exists(rel_dir):
+        os.makedirs(rel_dir)
 
-    name = toString(json_data["location"]["lng"], json_data["location"]["lat"])
+    name = toString(json_data["location"]["lng"], json_data["location"]["lat"]) + "/"
+
+    if not os.path.exists(rel_dir + name):
+        os.makedirs(rel_dir + name)
     
     for image in json_data["images"]:
         response = requests.get(image["url"], stream=True)
@@ -53,7 +55,7 @@ def download_files(rel_dir, json_req):
         del response
 
 
-# In[51]:
+# In[7]:
 
 
 download_files("./downloads/", json_data)
@@ -61,13 +63,13 @@ download_files("./downloads/", json_data)
 
 # ## Generate versioncontrollable artifacts
 
-# In[54]:
+# In[ ]:
 
 
 get_ipython().system("jupyter nbconvert --output-dir='./target' --to python get_data_scripts.ipynb")
 
 
-# In[55]:
+# In[ ]:
 
 
 get_ipython().system("jupyter nbconvert --output-dir='./target' --to html get_data_scripts.ipynb")
