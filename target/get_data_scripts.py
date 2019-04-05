@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[17]:
+# In[4]:
 
 
 import json
@@ -11,13 +11,13 @@ import requests
 import time
 
 
-# In[18]:
+# In[5]:
 
 
-def get_json_data(lat, lng):
+def get_json_data(lat, lng, datum_string_from, datum_string_to):
     api_url = 'https://mtf-sat.synvinkel.org/timeseries?apikey=biscayabukten&fbclid=IwAR0woGRqFpiBML0h03XRs9Uz5ag3Vw834foaHnW4oCyRbRxjVyU8mmKOILE'
     #always whole 2018
-    paramters  =' &lng=' + str(lng) + '&lat=' + str(lat) + '8&startDate=2018-01-01&endDate=2018-12-30'
+    paramters  =' &lng=' + str(lng) + '&lat=' + str(lat) + '&startDate=' + datum_string_from +'&endDate=' + datum_string_to
     req = requests.get(api_url + paramters)
     if req.status_code == 200:
         req_data = req.content
@@ -26,13 +26,13 @@ def get_json_data(lat, lng):
         return None
 
 
-# In[22]:
+# In[7]:
 
 
-json_data = get_json_data(lng=106.18,lat=54.00)
+json_data = get_json_data(lng=106.18,lat=54.00, datum_string_from="2018-01-01", datum_string_to="2019-12-30")
 
 
-# In[23]:
+# In[ ]:
 
 
 def toString(long, lat):
@@ -75,13 +75,13 @@ download_files("./downloads/", json_data)
 
 # ## Generate versioncontrollable artifacts
 
-# In[8]:
+# In[ ]:
 
 
 get_ipython().system("jupyter nbconvert --output-dir='./target' --to python get_data_scripts.ipynb")
 
 
-# In[9]:
+# In[ ]:
 
 
 get_ipython().system("jupyter nbconvert --output-dir='./target' --to html get_data_scripts.ipynb")

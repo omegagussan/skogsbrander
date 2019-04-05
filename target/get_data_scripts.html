@@ -11773,7 +11773,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
@@ -11790,13 +11790,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_json_data</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_json_data</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">,</span> <span class="n">datum_string_from</span><span class="p">,</span> <span class="n">datum_string_to</span><span class="p">):</span>
     <span class="n">api_url</span> <span class="o">=</span> <span class="s1">&#39;https://mtf-sat.synvinkel.org/timeseries?apikey=biscayabukten&amp;fbclid=IwAR0woGRqFpiBML0h03XRs9Uz5ag3Vw834foaHnW4oCyRbRxjVyU8mmKOILE&#39;</span>
     <span class="c1">#always whole 2018</span>
-    <span class="n">paramters</span>  <span class="o">=</span><span class="s1">&#39; &amp;lng=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lng</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;lat=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;8&amp;startDate=2018-01-01&amp;endDate=2018-12-30&#39;</span>
+    <span class="n">paramters</span>  <span class="o">=</span><span class="s1">&#39; &amp;lng=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lng</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;lat=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;startDate=&#39;</span> <span class="o">+</span> <span class="n">datum_string_from</span> <span class="o">+</span><span class="s1">&#39;&amp;endDate=&#39;</span> <span class="o">+</span> <span class="n">datum_string_to</span>
     <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">api_url</span> <span class="o">+</span> <span class="n">paramters</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
         <span class="n">req_data</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">content</span>
@@ -11812,10 +11812,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">json_data</span> <span class="o">=</span> <span class="n">get_json_data</span><span class="p">(</span><span class="n">lng</span><span class="o">=</span><span class="mf">106.18</span><span class="p">,</span><span class="n">lat</span><span class="o">=</span><span class="mf">54.00</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">json_data</span> <span class="o">=</span> <span class="n">get_json_data</span><span class="p">(</span><span class="n">lng</span><span class="o">=</span><span class="mf">106.18</span><span class="p">,</span><span class="n">lat</span><span class="o">=</span><span class="mf">54.00</span><span class="p">,</span> <span class="n">datum_string_from</span><span class="o">=</span><span class="s2">&quot;2018-01-01&quot;</span><span class="p">,</span> <span class="n">datum_string_to</span><span class="o">=</span><span class="s2">&quot;2019-12-30&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11825,7 +11825,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">toString</span><span class="p">(</span><span class="n">long</span><span class="p">,</span> <span class="n">lat</span><span class="p">):</span>
@@ -11877,26 +11877,6 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>downloading 81 into folder lng:106.18lat:54.08/
-0 images downloaded
-10 images downloaded
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -11908,7 +11888,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter nbconvert --output-dir<span class="o">=</span><span class="s1">&#39;./target&#39;</span> --to python get_data_scripts.ipynb
@@ -11918,54 +11898,16 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[NbConvertApp] Converting notebook get_data_scripts.ipynb to python
-[NbConvertApp] Writing 1617 bytes to ./target/get_data_scripts.py
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter nbconvert --output-dir<span class="o">=</span><span class="s1">&#39;./target&#39;</span> --to html get_data_scripts.ipynb
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[NbConvertApp] Converting notebook get_data_scripts.ipynb to html
-[NbConvertApp] Writing 309665 bytes to ./target/get_data_scripts.html
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
