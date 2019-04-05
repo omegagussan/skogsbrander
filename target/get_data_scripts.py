@@ -10,20 +10,26 @@ import os
 import requests
 
 
-# In[5]:
+# In[59]:
 
 
-api_url = 'https://mtf-sat.synvinkel.org/timeseries?apikey=biscayabukten&fbclid=IwAR0woGRqFpiBML0h03XRs9Uz5ag3Vw834foaHnW4oCyRbRxjVyU8mmKOILE'
-paramters  =' &lng=106.18&lat=53.98&startDate=2018-01-01&endDate=2018-12-30'
+def get_json_data(lat, lng):
+    api_url = 'https://mtf-sat.synvinkel.org/timeseries?apikey=biscayabukten&fbclid=IwAR0woGRqFpiBML0h03XRs9Uz5ag3Vw834foaHnW4oCyRbRxjVyU8mmKOILE'
+    #always whole 2018
+    paramters  =' &lng=' + str(lng) + '&lat=' + str(lat) + '8&startDate=2018-01-01&endDate=2018-12-30'
+    req = requests.get(api_url + paramters)
+    print(req)
+    if req.status == 200:
+        req_data = req.content
+        return json.loads(req_data)
+    else:
+        return None
 
 
-# In[27]:
+# In[60]:
 
 
-#get list of images for coordinates
-req_data = requests.get(api_url + paramters).content
-json_data = json.loads(req_data)
-json_data
+json_data = get_json_data(lng=106.18,lat=53.98)
 
 
 # In[49]:
@@ -55,14 +61,14 @@ download_files("./downloads/", json_data)
 
 # ## Generate versioncontrollable artifacts
 
-# In[ ]:
+# In[54]:
 
 
-get_ipython().system("jupyter nbconvert --output-dir='./target' --to python TrailerGeneration.ipynb")
+get_ipython().system("jupyter nbconvert --output-dir='./target' --to python get_data_scripts.ipynb")
 
 
-# In[ ]:
+# In[55]:
 
 
-get_ipython().system("jupyter nbconvert --output-dir='./target' --to html TrailerGeneration.ipynb")
+get_ipython().system("jupyter nbconvert --output-dir='./target' --to html get_data_scripts.ipynb")
 
